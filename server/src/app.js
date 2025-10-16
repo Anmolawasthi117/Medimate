@@ -46,13 +46,16 @@ app.get('/', (req, res) => {
 // importing routes
 import healthcheackRouter from "./routes/healthcheack.routes.js";
 import patientRoutes from "./routes/patient.routes.js";
-import scheduleRoutes from "./routes/schedule.routes.js";
 import logRoutes from "./routes/log.routes.js";
+import espRoutes from "./routes/esp.routes.js"; 
+import userRoutes from "./routes/user.routes.js";
 
 // creating routes
+app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/healthcheack", healthcheackRouter);
 app.use("/api/v1/patients", patientRoutes);
-app.use("/api/v1/schedules", scheduleRoutes);
 app.use("/api/v1/logs", logRoutes);
+app.use("/api/v1/esp", espRoutes); 
+
 
 export {app};

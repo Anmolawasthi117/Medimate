@@ -7,25 +7,22 @@ const logSchema = new Schema({
         ref: "Patient",
         required: true
     },
-    slot: {
-        type: Number,
-        required: true,
-        min: 0,
-        max: 9
-    },
-    medicationName: {
+    scheduledTime: {
         type: String,
         required: true,
-        trim: true
+        match: /^([0-1][0-9]|2[0-3]):[0-5][0-9]$/ // e.g. "08:00"
     },
-    timestamp: {
-        type: Date,
-        default: Date.now
+    date: {
+        type: String,
+        required: true // YYYY-MM-DD for easy queries
     },
     status: {
         type: String,
-        enum: ["dispensed", "confirmed", "missed"],
-        default: "dispensed"
+        enum: ["taken", "missed", "skipped"],
+        default: "missed"
+    },
+    actualTime: {
+        type: Date
     }
 }, {
     timestamps: true
