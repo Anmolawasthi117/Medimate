@@ -14,9 +14,9 @@ app.use(express.json({limit:"16kb"})); //for parsing the json
 app.use(express.urlencoded({extended:true,limit:"16kb"})); // for ulrencoding
 app.use(
     cors({
-        origin:process.env.CORS_ORIGIN,
-        credentials:true
-})); // for cors
+        origin: ["http://localhost:5173", "http://127.0.0.1:5173"], 
+        credentials: true
+}));// for cors
 app.use(express.static("public")); 
 app.use(cookieParser()); 
 app.use(

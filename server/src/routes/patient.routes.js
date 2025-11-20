@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { verifyJWT } from "../middleware/auth.middleware.js"; // Import this!
 import {
   createPatient,
   getPatient,
@@ -8,15 +9,17 @@ import {
 
 const router = Router();
 
-// Create new patient (with schedule info)
-router.route("/").post(createPatient);
+// --- UI/User Routes (PROTECTED) ---
+// These require the user to be logged in
+router.route("/").post(verifyJWT, createPatient);
 
-// Get / Update patient by deviceId (for UI or ESP)
 router.route("/:deviceId")
-  .get(getPatient)
-  .put(updatePatient);
+  .get(verifyJWT, getPatient)
+  .put(verifyJWT, updatePatient);
 
-// Get patient info by device (for ESP boot)
+// --- ESP/Device Routes (PUBLIC or API KEY PROTECTED) ---
+// The ESP chip calls this. It doesn't have a User JWT.
+// Do NOT add verifyJWT here unless your ESP code sends the token.
 router.route("/device/:deviceId").get(getPatientByDevice);
 
 export default router;
