@@ -12,7 +12,7 @@ const ScheduleEditor = ({ deviceId }) => {
     useEffect(() => {
         const fetchSchedule = async () => {
             try {
-                const response = await axios.get(`/patients/${deviceId}`);
+                const response = await axios.get(`/patients/device/${deviceId}`);
                 // Ensure we get an array, even if backend returns null
                 setSchedule(response.data.data.schedule || []); 
             } catch (error) {
