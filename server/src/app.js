@@ -58,4 +58,4 @@ app.use("/api/v1/logs", logRoutes);
 app.use("/api/v1/esp", espRoutes); 
 
 
-export {app};
+export default app;

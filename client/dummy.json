@@ -1,0 +1,156 @@
+[
+  {
+    "_id": { "$oid": "67410cc012f4d9b8c3000001" },
+    "patientId": { "$oid": "68f13594fdf5b6525411d027" },
+    "scheduledTime": "08:00",
+    "date": "2025-11-17",
+    "status": "taken",
+    "actualTime": { "$date": "2025-11-17T08:02:00.000Z" },
+    "createdAt": { "$date": "2025-11-17T08:10:00.000Z" },
+    "updatedAt": { "$date": "2025-11-17T08:10:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "67410cc012f4d9b8c3000002" },
+    "patientId": { "$oid": "68f13594fdf5b6525411d027" },
+    "scheduledTime": "14:30",
+    "date": "2025-11-17",
+    "status": "missed",
+    "actualTime": null,
+    "createdAt": { "$date": "2025-11-17T14:40:00.000Z" },
+    "updatedAt": { "$date": "2025-11-17T14:40:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "67410cc012f4d9b8c3000003" },
+    "patientId": { "$oid": "68f13594fdf5b6525411d027" },
+    "scheduledTime": "19:45",
+    "date": "2025-11-17",
+    "status": "skipped",
+    "actualTime": { "$date": "2025-11-17T19:50:00.000Z" },
+    "createdAt": { "$date": "2025-11-17T19:52:00.000Z" },
+    "updatedAt": { "$date": "2025-11-17T19:52:00.000Z" }
+  },
+
+  {
+    "_id": { "$oid": "67410cc012f4d9b8c3000004" },
+    "patientId": { "$oid": "68f13594fdf5b6525411d027" },
+    "scheduledTime": "07:30",
+    "date": "2025-11-18",
+    "status": "taken",
+    "actualTime": { "$date": "2025-11-18T07:31:00.000Z" },
+    "createdAt": { "$date": "2025-11-18T07:40:00.000Z" },
+    "updatedAt": { "$date": "2025-11-18T07:40:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "67410cc012f4d9b8c3000005" },
+    "patientId": { "$oid": "68f13594fdf5b6525411d027" },
+    "scheduledTime": "12:00",
+    "date": "2025-11-18",
+    "status": "taken",
+    "actualTime": { "$date": "2025-11-18T12:05:00.000Z" },
+    "createdAt": { "$date": "2025-11-18T12:10:00.000Z" },
+    "updatedAt": { "$date": "2025-11-18T12:10:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "67410cc012f4d9b8c3000006" },
+    "patientId": { "$oid": "68f13594fdf5b6525411d027" },
+    "scheduledTime": "18:15",
+    "date": "2025-11-18",
+    "status": "missed",
+    "actualTime": null,
+    "createdAt": { "$date": "2025-11-18T18:20:00.000Z" },
+    "updatedAt": { "$date": "2025-11-18T18:20:00.000Z" }
+  },
+
+  {
+    "_id": { "$oid": "67410cc012f4d9b8c3000007" },
+    "patientId": { "$oid": "68f13594fdf5b6525411d027" },
+    "scheduledTime": "09:00",
+    "date": "2025-11-19",
+    "status": "taken",
+    "actualTime": { "$date": "2025-11-19T09:03:00.000Z" },
+    "createdAt": { "$date": "2025-11-19T09:10:00.000Z" },
+    "updatedAt": { "$date": "2025-11-19T09:10:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "67410cc012f4d9b8c3000008" },
+    "patientId": { "$oid": "68f13594fdf5b6525411d027" },
+    "scheduledTime": "13:00",
+    "date": "2025-11-19",
+    "status": "skipped",
+    "actualTime": { "$date": "2025-11-19T13:02:00.000Z" },
+    "createdAt": { "$date": "2025-11-19T13:05:00.000Z" },
+    "updatedAt": { "$date": "2025-11-19T13:05:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "67410cc012f4d9b8c3000009" },
+    "patientId": { "$oid": "68f13594fdf5b6525411d027" },
+    "scheduledTime": "20:00",
+    "date": "2025-11-19",
+    "status": "missed",
+    "actualTime": null,
+    "createdAt": { "$date": "2025-11-19T20:10:00.000Z" },
+    "updatedAt": { "$date": "2025-11-19T20:10:00.000Z" }
+  },
+
+  {
+    "_id": { "$oid": "67410cc012f4d9b8c3000010" },
+    "patientId": { "$oid": "68f13594fdf5b6525411d027" },
+    "scheduledTime": "10:00",
+    "date": "2025-11-20",
+    "status": "taken",
+    "actualTime": { "$date": "2025-11-20T10:01:00.000Z" },
+    "createdAt": { "$date": "2025-11-20T10:05:00.000Z" },
+    "updatedAt": { "$date": "2025-11-20T10:05:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "67410cc012f4d9b8c3000011" },
+    "patientId": { "$oid": "68f13594fdf5b6525411d027" },
+    "scheduledTime": "15:30",
+    "date": "2025-11-20",
+    "status": "skipped",
+    "actualTime": { "$date": "2025-11-20T15:35:00.000Z" },
+    "createdAt": { "$date": "2025-11-20T15:40:00.000Z" },
+    "updatedAt": { "$date": "2025-11-20T15:40:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "67410cc012f4d9b8c3000012" },
+    "patientId": { "$oid": "68f13594fdf5b6525411d027" },
+    "scheduledTime": "21:00",
+    "date": "2025-11-20",
+    "status": "taken",
+    "actualTime": { "$date": "2025-11-20T21:02:00.000Z" },
+    "createdAt": { "$date": "2025-11-20T21:05:00.000Z" },
+    "updatedAt": { "$date": "2025-11-20T21:05:00.000Z" }
+  },
+
+  {
+    "_id": { "$oid": "67410cc012f4d9b8c3000013" },
+    "patientId": { "$oid": "68f13594fdf5b6525411d027" },
+    "scheduledTime": "08:00",
+    "date": "2025-11-21",
+    "status": "taken",
+    "actualTime": { "$date": "2025-11-21T08:05:00.000Z" },
+    "createdAt": { "$date": "2025-11-21T06:35:25.311Z" },
+    "updatedAt": { "$date": "2025-11-21T06:35:25.311Z" }
+  },
+  {
+    "_id": { "$oid": "67410cc012f4d9b8c3000014" },
+    "patientId": { "$oid": "68f13594fdf5b6525411d027" },
+    "scheduledTime": "14:30",
+    "date": "2025-11-22",
+    "status": "missed",
+    "actualTime": null,
+    "createdAt": { "$date": "2025-11-22T14:40:00.000Z" },
+    "updatedAt": { "$date": "2025-11-22T14:40:00.000Z" }
+  },
+  {
+    "_id": { "$oid": "67410cc012f4d9b8c3000015" },
+    "patientId": { "$oid": "68f13594fdf5b6525411d027" },
+    "scheduledTime": "19:00",
+    "date": "2025-11-23",
+    "status": "taken",
+    "actualTime": { "$date": "2025-11-23T19:04:00.000Z" },
+    "createdAt": { "$date": "2025-11-23T19:10:00.000Z" },
+    "updatedAt": { "$date": "2025-11-23T19:10:00.000Z" }
+  }
+]
