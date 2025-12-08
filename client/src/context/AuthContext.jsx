@@ -13,7 +13,8 @@ export const AuthProvider = ({ children }) => {
         const checkUser = async () => {
             try {
                 // Matches your backend: router.route("/current-user").get(...)
-                const response = await axios.get('/users/current-user');
+                const response = await axios.get('/users/current-user', { withCredentials: true });
+
                 setAuth(response.data.data); // Assuming standard API response wrapper
             } catch (error) {
                 setAuth(null);
@@ -26,7 +27,8 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (email, password) => {
         try {
-            const response = await axios.post('/users/login', { email, password });
+            const response = await axios.post('/users/login', { email, password }, { withCredentials: true });
+
             setAuth(response.data.data.user);
             toast.success("Logged in successfully!");
             return true;
