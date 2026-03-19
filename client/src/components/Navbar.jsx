@@ -6,36 +6,107 @@ const Navbar = () => {
     const { auth, logout } = useAuth();
 
     return (
-        <nav className="bg-blue-600 text-white p-4 shadow-md sticky top-0 z-50">
-            <div className="container mx-auto flex justify-between items-center">
-                <Link to="/" className="text-xl font-bold flex items-center gap-2">
-                    <Activity /> Medimate
+        <nav className="main-nav">
+            <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.9rem 0' }}>
+                {/* Logo */}
+                <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <div style={{
+                        background: 'linear-gradient(135deg, #0ea5e9, #14b8a6)',
+                        borderRadius: '10px',
+                        width: 36,
+                        height: 36,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxShadow: '0 4px 12px rgba(14,165,233,0.3)'
+                    }}>
+                        <Activity size={20} color="#fff" />
+                    </div>
+                    <span style={{
+                        fontSize: '1.2rem',
+                        fontWeight: 800,
+                        background: 'linear-gradient(135deg, #0ea5e9, #14b8a6)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                        letterSpacing: '-0.02em'
+                    }}>
+                        Medimate
+                    </span>
                 </Link>
-                
-                <div className="flex gap-4 items-center">
+
+                {/* Nav Items */}
+                <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
                     {auth ? (
                         <>
-                            <Link 
-                                to="/profile" 
-                                className="text-sm font-medium hover:bg-blue-700 px-3 py-1 rounded transition flex items-center gap-2"
-                                title="Go to Profile"
+                            <Link
+                                to="/profile"
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '0.4rem',
+                                    textDecoration: 'none',
+                                    color: 'var(--text-secondary)',
+                                    fontWeight: 500,
+                                    fontSize: '0.9rem',
+                                    padding: '0.45rem 0.9rem',
+                                    borderRadius: 'var(--radius-pill)',
+                                    border: '1px solid var(--border)',
+                                    background: 'var(--bg-input)',
+                                    transition: 'all 0.2s'
+                                }}
+                                onMouseEnter={e => {
+                                    e.currentTarget.style.borderColor = 'var(--primary)';
+                                    e.currentTarget.style.color = 'var(--primary)';
+                                }}
+                                onMouseLeave={e => {
+                                    e.currentTarget.style.borderColor = 'var(--border)';
+                                    e.currentTarget.style.color = 'var(--text-secondary)';
+                                }}
                             >
-                                <User size={18} /> {auth.username}
+                                <div style={{
+                                    width: 26,
+                                    height: 26,
+                                    borderRadius: '50%',
+                                    background: 'linear-gradient(135deg, #0ea5e9, #14b8a6)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    color: '#fff',
+                                    fontSize: '0.7rem',
+                                    fontWeight: 700
+                                }}>
+                                    {auth.username?.charAt(0).toUpperCase()}
+                                </div>
+                                {auth.username}
                             </Link>
-                            <button 
-                                onClick={logout} 
-                                className="flex items-center gap-1 bg-blue-800 hover:bg-blue-900 px-3 py-1 rounded transition text-sm"
+                            <button
+                                onClick={logout}
+                                className="btn-danger"
                             >
-                                <LogOut size={16} /> Logout
+                                <LogOut size={15} /> Logout
                             </button>
                         </>
                     ) : (
-                        <div className="space-x-4">
-                            <Link to="/login" className="hover:underline">Login</Link>
-                            <Link to="/register" className="bg-white text-blue-600 px-3 py-1 rounded font-medium hover:bg-gray-100">
+                        <>
+                            <Link
+                                to="/login"
+                                style={{
+                                    textDecoration: 'none',
+                                    color: 'var(--text-secondary)',
+                                    fontWeight: 500,
+                                    fontSize: '0.9rem',
+                                    padding: '0.45rem 1rem',
+                                    borderRadius: 'var(--radius-pill)',
+                                    transition: 'color 0.2s'
+                                }}
+                            >
+                                Login
+                            </Link>
+                            <Link to="/register" className="btn-primary" style={{ textDecoration: 'none', padding: '0.5rem 1.25rem', fontSize: '0.9rem' }}>
                                 Register
                             </Link>
-                        </div>
+                        </>
                     )}
                 </div>
             </div>

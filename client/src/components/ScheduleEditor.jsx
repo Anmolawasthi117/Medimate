@@ -8,13 +8,11 @@ const ScheduleEditor = ({ deviceId }) => {
     const [newTime, setNewTime] = useState("");
     const [loading, setLoading] = useState(true);
 
-    // Fetch schedule when component mounts
     useEffect(() => {
         const fetchSchedule = async () => {
             try {
                 const response = await axios.get(`/patients/device/${deviceId}`);
-                // Ensure we get an array, even if backend returns null
-                setSchedule(response.data.data.schedule || []); 
+                setSchedule(response.data.data.schedule || []);
             } catch (error) {
                 toast.error("Failed to load schedule");
             } finally {
@@ -24,82 +22,87 @@ const ScheduleEditor = ({ deviceId }) => {
         if (deviceId) fetchSchedule();
     }, [deviceId]);
 
-    // Add a new time to the list
     const addTime = () => {
         if (!newTime) return;
-        if (schedule.includes(newTime)) {
-            toast.error("Time already exists");
-            return;
-        }
-        const updatedSchedule = [...schedule, newTime].sort(); // Keep it sorted
-        setSchedule(updatedSchedule);
+        if (schedule.includes(newTime)) { toast.error("Time already exists"); return; }
+        setSchedule([...schedule, newTime].sort());
         setNewTime("");
     };
 
-    // Remove a time
     const removeTime = (timeToRemove) => {
-        setSchedule(schedule.filter(time => time !== timeToRemove));
+        setSchedule(schedule.filter(t => t !== timeToRemove));
     };
 
-    // Save changes to Backend
     const saveSchedule = async () => {
         try {
             await axios.put(`/patients/${deviceId}`, { schedule });
             toast.success("Schedule updated successfully!");
         } catch (error) {
-            console.error(error);
             toast.error("Failed to save schedule");
         }
     };
 
-    if (loading) return <div className="p-4 text-gray-500">Loading schedule...</div>;
+    if (loading) return (
+        <div className="card" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-muted)' }}>
+            <div style={{ width: 18, height: 18, borderRadius: '50%', border: '2px solid #0ea5e9', borderTopColor: 'transparent', animation: 'spin 0.8s linear infinite' }} />
+            Loading schedule...
+        </div>
+    );
 
     return (
-        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-            <h3 className="text-lg font-semibold flex items-center gap-2 mb-4 text-gray-800">
-                <Clock className="text-blue-500" size={20} /> Medication Schedule
-            </h3>
-
-            {/* Time List */}
-            <div className="space-y-3 mb-6">
-                {schedule.length === 0 && (
-                    <p className="text-gray-400 italic">No times scheduled yet.</p>
-                )}
-                {schedule.map((time, index) => (
-                    <div key={index} className="flex items-center justify-between bg-gray-50 p-3 rounded border border-gray-100">
-                        <span className="text-lg font-medium text-gray-700">{time}</span>
-                        <button 
-                            onClick={() => removeTime(time)}
-                            className="text-red-400 hover:text-red-600 transition"
-                        >
-                            <Trash2 size={18} />
-                        </button>
-                    </div>
-                ))}
+        <div className="card">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '1.5rem' }}>
+                <div style={{ width: 34, height: 34, borderRadius: 10, background: '#eff6ff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Clock size={18} color="#0ea5e9" />
+                </div>
+                <h3 style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>Medication Schedule</h3>
             </div>
 
-            {/* Add New Time Input */}
-            <div className="flex gap-2 mb-6">
-                <input 
-                    type="time" 
+            {/* Time Slots */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem', marginBottom: '1.5rem', minHeight: 40 }}>
+                {schedule.length === 0 ? (
+                    <p style={{ color: 'var(--text-muted)', fontStyle: 'italic', fontSize: '0.9rem' }}>No times scheduled yet.</p>
+                ) : (
+                    schedule.map((time, index) => (
+                        <div key={index} style={{
+                            display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+                            background: 'linear-gradient(135deg, #eff6ff, #f0fdf4)',
+                            border: '1px solid #bfdbfe',
+                            borderRadius: 'var(--radius-pill)',
+                            padding: '0.45rem 0.85rem',
+                            fontWeight: 600, fontSize: '0.9rem', color: 'var(--primary)'
+                        }}>
+                            <Clock size={13} />
+                            {time}
+                            <button
+                                onClick={() => removeTime(time)}
+                                style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#ef4444', display: 'flex', alignItems: 'center', padding: 0, marginLeft: '0.1rem' }}
+                                title="Remove"
+                            >
+                                <Trash2 size={13} />
+                            </button>
+                        </div>
+                    ))
+                )}
+            </div>
+
+            {/* Add Time */}
+            <div style={{ display: 'flex', gap: '0.6rem', marginBottom: '1.25rem' }}>
+                <input
+                    type="time"
+                    className="input-field"
                     value={newTime}
                     onChange={(e) => setNewTime(e.target.value)}
-                    className="border rounded px-3 py-2 flex-1 focus:ring-2 focus:ring-blue-500 outline-none"
+                    style={{ flex: 1 }}
                 />
-                <button 
-                    onClick={addTime}
-                    className="bg-blue-100 text-blue-600 px-4 py-2 rounded hover:bg-blue-200 transition flex items-center gap-1"
-                >
-                    <Plus size={18} /> Add
+                <button onClick={addTime} className="btn-secondary" style={{ gap: '0.3rem', borderRadius: 10, padding: '0 1rem', flexShrink: 0 }}>
+                    <Plus size={16} /> Add
                 </button>
             </div>
 
-            {/* Save Button */}
-            <button 
-                onClick={saveSchedule}
-                className="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700 transition flex items-center justify-center gap-2 font-medium"
-            >
-                <Save size={18} /> Save Changes
+            {/* Save */}
+            <button onClick={saveSchedule} className="btn-primary" style={{ width: '100%', padding: '0.85rem' }}>
+                <Save size={16} /> Save Schedule
             </button>
         </div>
     );

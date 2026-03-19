@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default axios.create({
-    baseURL: 'https://medimate-nu.vercel.app/api/v1', // changed from full URL to relative path
+    baseURL: 'http://localhost:5000/api/v1',
     withCredentials: true,
     headers: {
         'Content-Type': 'application/json',

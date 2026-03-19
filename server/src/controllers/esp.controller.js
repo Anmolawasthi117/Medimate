@@ -110,21 +110,25 @@ const sendHeartbeat = asyncHandler(async (req, res) => {
  */
 const getWeeklyReport = asyncHandler(async (req, res) => {
   const { deviceId } = req.params;
+  const days = parseInt(req.query.days) || 365; // default: all time (1 year)
 
   const patient = await Patient.findOne({ deviceId });
   if (!patient) throw new ApiError(404, "Patient not found");
 
   const endDate = new Date();
   const startDate = new Date(endDate);
-  startDate.setDate(endDate.getDate() - 7);
+  startDate.setDate(endDate.getDate() - days);
 
   const logs = await Log.find({
     patientId: patient._id,
-    createdAt: { $gte: startDate, $lte: endDate },
+    $or: [
+      { actualTime: { $gte: startDate, $lte: endDate } },
+      { createdAt: { $gte: startDate, $lte: endDate } },
+    ],
   }).sort({ date: 1, scheduledTime: 1 });
 
   const totalLogs = logs.length;
-  const taken = logs.filter((l) => l.status === "taken").length;
+  const taken  = logs.filter((l) => l.status === "taken").length;
   const missed = logs.filter((l) => l.status === "missed").length;
   const skipped = logs.filter((l) => l.status === "skipped").length;
 
@@ -134,7 +138,10 @@ const getWeeklyReport = asyncHandler(async (req, res) => {
 
   const dailyStats = {};
   logs.forEach((log) => {
-    const day = log.date;
+    // bucket by date string; prefer log.date field, fallback to actualTime date
+    const day = log.date || (log.actualTime
+      ? new Date(log.actualTime).toISOString().split("T")[0]
+      : new Date(log.createdAt).toISOString().split("T")[0]);
     if (!dailyStats[day]) {
       dailyStats[day] = { taken: 0, missed: 0, skipped: 0, total: 0 };
     }
@@ -162,8 +169,9 @@ const getWeeklyReport = asyncHandler(async (req, res) => {
 
   return res
     .status(200)
-    .json(new ApiResponse(200, report, "Weekly report generated successfully"));
+    .json(new ApiResponse(200, report, "Report generated successfully"));
 });
+
 
 export {
   registerESP,

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
+import { User, AtSign, Mail, Lock, Activity, ArrowRight } from "lucide-react";
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -18,41 +19,76 @@ const Register = () => {
         if (success) navigate("/login");
     };
 
+    const fields = [
+        { key: "fullName",  label: "Full Name",    type: "text",     placeholder: "John Doe",          icon: User },
+        { key: "username",  label: "Username",      type: "text",     placeholder: "john_doe",          icon: AtSign },
+        { key: "email",     label: "Email address", type: "email",    placeholder: "you@example.com",   icon: Mail },
+        { key: "password",  label: "Password",      type: "password", placeholder: "••••••••",          icon: Lock },
+    ];
+
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
-            <div className="bg-white p-8 rounded-lg shadow-md w-96">
-                <h2 className="text-2xl font-bold mb-6 text-center text-blue-600">Register</h2>
-                <form onSubmit={handleSubmit} className="space-y-3">
-                    <input
-                        type="text" placeholder="Full Name"
-                        className="w-full p-2 border rounded"
-                        onChange={(e) => setFormData({...formData, fullName: e.target.value})}
-                        required
-                    />
-                    <input
-                        type="text" placeholder="Username"
-                        className="w-full p-2 border rounded"
-                        onChange={(e) => setFormData({...formData, username: e.target.value})}
-                        required
-                    />
-                    <input
-                        type="email" placeholder="Email"
-                        className="w-full p-2 border rounded"
-                        onChange={(e) => setFormData({...formData, email: e.target.value})}
-                        required
-                    />
-                    <input
-                        type="password" placeholder="Password"
-                        className="w-full p-2 border rounded"
-                        onChange={(e) => setFormData({...formData, password: e.target.value})}
-                        required
-                    />
-                    <button className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
-                        Register
+        <div className="auth-bg">
+            <div className="auth-card animate-fade-up">
+                {/* Brand */}
+                <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
+                    <div style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: 56,
+                        height: 56,
+                        background: 'linear-gradient(135deg, #0ea5e9, #14b8a6)',
+                        borderRadius: 16,
+                        boxShadow: '0 8px 24px rgba(14,165,233,0.3)',
+                        marginBottom: '1rem'
+                    }}>
+                        <Activity size={28} color="#fff" />
+                    </div>
+                    <h1 style={{
+                        fontSize: '1.65rem',
+                        fontWeight: 800,
+                        background: 'linear-gradient(135deg, #0ea5e9, #14b8a6)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                        letterSpacing: '-0.03em',
+                        marginBottom: '0.25rem'
+                    }}>
+                        Create your account
+                    </h1>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
+                        Start managing your medications today
+                    </p>
+                </div>
+
+                {/* Form */}
+                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                    {fields.map(({ key, label, type, placeholder, icon: Icon }) => (
+                        <div key={key}>
+                            <label className="form-label">{label}</label>
+                            <div style={{ position: 'relative' }}>
+                                <Icon size={16} style={{ position: 'absolute', left: '0.9rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)', pointerEvents: 'none' }} />
+                                <input
+                                    type={type}
+                                    className="input-field"
+                                    style={{ paddingLeft: '2.5rem' }}
+                                    placeholder={placeholder}
+                                    onChange={(e) => setFormData({ ...formData, [key]: e.target.value })}
+                                    required
+                                />
+                            </div>
+                        </div>
+                    ))}
+                    <button type="submit" className="btn-primary" style={{ width: '100%', marginTop: '0.5rem', padding: '0.85rem' }}>
+                        Create account <ArrowRight size={16} />
                     </button>
                 </form>
-                <p className="mt-4 text-center text-sm">
-                    Already have an account? <Link to="/login" className="text-blue-600">Login</Link>
+
+                <p style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.875rem', color: 'var(--text-muted)' }}>
+                    Already have an account?{' '}
+                    <Link to="/login" style={{ color: 'var(--primary)', fontWeight: 600, textDecoration: 'none' }}>
+                        Sign in →
+                    </Link>
                 </p>
             </div>
         </div>
